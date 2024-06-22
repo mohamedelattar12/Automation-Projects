@@ -1,0 +1,11 @@
+{
+  "suite": {
+    "name":"Regression",
+    "test":{
+      "name": "Regression1",
+      "classes":{
+        "name": "main",
+        "methods": [add,multiply,substract,devide]}
+      }
+    }
+  }

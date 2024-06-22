@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Regression">
+    <test name="Regression 1">
+        <classes>
+            <class name="main">
+                <methods>
+                    <include name="Add"></include>
+                    <include name="multiply"></include>
+                    <include name="substract"/>
+                    <include name="devide"></include>
+                </methods>
+            </class>
+        </classes>
+    </test> <!-- Test -->
+</suite> <!-- Suite -->
