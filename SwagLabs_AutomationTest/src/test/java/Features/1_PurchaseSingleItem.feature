@@ -8,25 +8,25 @@ Feature: Complete Purchase of Single Item
     And   Press the "login" button
     Then  Successful Login
 
-#    When  Press the sorting drop down
-#    And   choose "Name (A to Z)"
-#    Then  Products are sorted from A to Z successfully
-#
-#    When  press Add to cart button for Sauce Labs Backpack
-#    Then  cart number increases by 1
-#
-#    When  Press on the "cart" icon on the top right of the page
-#    Then  Redirection to the cart page
-#
-#    When  Press Check out button
-#    Then  Redirection to Checkout: Your Information
-#
-#    When  Insert first name "Mohamed" , Last name "Elattar" and Postal code "1234"
-#    And   Click Contiune
-#    Then  Redirection to Checkout: Overview
-#    And   Check price 29.99
-#
-#    When  Press "Finish"
-#    Then  Check Checkout: Complete!
-#    And  check Thank you for your order!
+    When  Press the sorting drop down
+    And   choose Name A to Z
+    Then  Products are sorted from A to Z successfully
+
+    When  press Add to cart button for Sauce Labs Backpack
+    Then  cart number increases by "1"
+
+    When  Press on the cart icon on the top right of the page
+    Then  Redirection to the cart page
+
+    When  Press Check out button
+    Then  Redirection to Checkout: Your Information
+
+    When  Insert first name "Mohamed" , Last name "Elattar" and Postal code "1234"
+    And   Click Contiune
+    Then  Redirection to Checkout: Overview
+    And   Check price 29.99
+
+    When  Press Finish
+    Then  Check Checkout: Complete!
+    And  check Thank you for your order!
 #
