@@ -14,7 +14,7 @@ public class HomePage {
     public String pageUrl() {
         return driver.getCurrentUrl();
     }
-
+////////////////////////////////////
     public WebElement sortingDropDown(){
         return driver.findElement(By.xpath("//*[@id=\"header_container\"]/div[2]/div/span/select"));
     }
@@ -23,6 +23,18 @@ public class HomePage {
         return driver.findElement(By.xpath("//*[@id=\"header_container\"]/div[2]/div/span/select/option[1]"));
     }
 
+    public WebElement nameZtoA(){
+        return driver.findElement(By.xpath("//*[@id=\"header_container\"]/div[2]/div/span/select/option[2]"));
+    }
+
+    public WebElement nameLowtoHigh(){
+        return driver.findElement(By.xpath("//*[@id=\"header_container\"]/div[2]/div/span/select/option[3]"));
+    }
+
+    public WebElement nameHightoLow(){
+        return driver.findElement(By.xpath("//*[@id=\"header_container\"]/div[2]/div/span/select/option[4]"));
+    }
+    ////////////////////////////////////
     public WebElement fistProduct(){
         return driver.findElement(By.xpath("//*[@id=\"inventory_container\"]/div/div[1]/div[2]"));
     }
@@ -34,11 +46,20 @@ public class HomePage {
     public WebElement thirdProduct(){
         return driver.findElement(By.xpath("//*[@id=\"inventory_container\"]/div/div[3]/div[2]"));
     }
-
+/////////////////////////////////////////////////////////////////////////////////
     public WebElement sauceLabsBackpackAdd(){
         return driver.findElement(By.xpath("//*[@id=\"add-to-cart-sauce-labs-backpack\"]"));
     }
-
+    public WebElement sauceLabsBikeLightAdd(){
+        return driver.findElement(By.xpath("//*[@id=\"add-to-cart-sauce-labs-bike-light\"]"));
+    }
+    public WebElement sauceLabsBoltTShirt(){
+        return driver.findElement(By.xpath("//*[@id=\"add-to-cart-sauce-labs-bolt-t-shirt\"]"));
+    }
+    public WebElement sauceLabsFleeceJacket(){
+        return driver.findElement(By.xpath("//*[@id=\"add-to-cart-sauce-labs-fleece-jacket\"]"));
+    }
+///////////////////////////////////////////////////////////////////////////////////
     public WebElement cartNumber(){
         return driver.findElement(By.xpath("//*[@id=\"shopping_cart_container\"]/a/span"));
     }
@@ -51,6 +72,21 @@ public class HomePage {
         return driver.findElement(By.xpath("//*[@id=\"header_container\"]/div[2]/span"));
     }
 
+    public WebElement fistProductPrice(){
+        return driver.findElement(By.xpath("/html/body/div/div/div/div[2]/div/div/div/div[1]/div[2]/div[2]/div"));
+    }
+
+    public WebElement secondProductPrice(){
+        return driver.findElement(By.xpath("/html/body/div/div/div/div[2]/div/div/div/div[2]/div[2]/div[2]/div"));
+    }
+
+    public WebElement thirdProductPrice(){
+        return driver.findElement(By.xpath("/html/body/div/div/div/div[2]/div/div/div/div[3]/div[2]/div[2]/div"));
+    }
+
+    public WebElement searchField(){
+        return null;
+    }
 
 }
 

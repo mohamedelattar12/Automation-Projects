@@ -11,6 +11,11 @@ public class YourCart {
         this.driver=driver;
     }
 
+    public WebElement removeSauceLabsBoltTShirt(){
+        return driver.findElement(By.xpath("//*[@id=\"remove-sauce-labs-bolt-t-shirt\"]"));
+    }
+
+
     public WebElement checkOut(){
         return driver.findElement(By.xpath("//*[@id=\"checkout\"]"));
     }

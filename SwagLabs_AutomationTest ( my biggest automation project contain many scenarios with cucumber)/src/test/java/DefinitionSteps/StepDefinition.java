@@ -18,8 +18,8 @@ public class StepDefinition {
     HomePage pomHomePage = new HomePage(driver);
     YourCart pomYourCart = new YourCart(driver);
     CheckoutYourInformation pomCheckout = new CheckoutYourInformation(driver);
-    CheckoutOverview pomCheckoverview=new CheckoutOverview(driver);
-    CheckoutComplete pomComplete=new CheckoutComplete(driver);
+    CheckoutOverview pomCheckoverview = new CheckoutOverview(driver);
+    CheckoutComplete pomComplete = new CheckoutComplete(driver);
 
     @Given("^Open the Swag Labs Website$")
     public void openSwagWebsite() {
@@ -54,29 +54,85 @@ public class StepDefinition {
         pomHomePage.sortingDropDown().click();
     }
 
-    @And("^choose Name A to Z$")
-    public void NameAtoZPress() {
-        pomHomePage.nameAtoZ().click();
+    @And("choose Name {string}")
+    public void NameAtoZPress(String type) {
+        switch (type) {
+            case "A to Z":
+                pomHomePage.nameAtoZ().click();
+                break;
+            case "Z to A":
+                pomHomePage.nameZtoA().click();
+                break;
+            case "Low to High":
+                pomHomePage.nameLowtoHigh().click();
+                break;
+            case "High to Low":
+                pomHomePage.nameHightoLow().click();
+                break;
+            default:
+                Assert.assertTrue("wrong name choose from sort table", false);
+        }
+
     }
 
-    @Then("^Products are sorted from A to Z successfully$")
-    public void assertSortfromAtoZ() {
-        Assert.assertTrue(pomHomePage.nameAtoZ().isSelected());
+    @Then("Products are sorted from {string} successfully")
+    public void assertSort(String type) {
         String s1 = pomHomePage.fistProduct().getText();
+        double s1Price = Double.parseDouble(pomHomePage.fistProductPrice().getText().replace("$", ""));
         String s2 = pomHomePage.secondProduct().getText();
+        double s2Price = Double.parseDouble(pomHomePage.secondProductPrice().getText().replace("$", ""));
         String s3 = pomHomePage.thirdProduct().getText();
-
+        double s3Price = Double.parseDouble(pomHomePage.thirdProductPrice().getText().replace("$", ""));
         int compareResult1 = s1.compareTo(s2);
         int compareResult2 = s2.compareTo(s3);
-        Assert.assertTrue(compareResult1 < 0 && compareResult2 < 0);
+        int compareResult3 = Double.compare(s1Price, s2Price);
+        int compareResult4 = Double.compare(s2Price, s3Price);
+//        System.out.println(s1Price+" "+s2Price+" "+s3Price+" "+compareResult3+" "+compareResult4);
+        switch (type) {
+            case "A to Z":
+                Assert.assertTrue("asser a to z selected", pomHomePage.nameAtoZ().isSelected());
+                Assert.assertTrue("A to Z assert switch", compareResult1 < 0 && compareResult2 < 0);
+                break;
+            case "Z to A":
+                Assert.assertTrue("assert z to a selected", pomHomePage.nameZtoA().isSelected());
+                Assert.assertTrue("Z to A assert Switch", compareResult1 > 0 && compareResult2 > 0);
+                break;
+            case "Low to High":
+                Assert.assertTrue("asser low to high selected", pomHomePage.nameLowtoHigh().isSelected());
+                Assert.assertTrue("Low to high switch assert", compareResult3 < 0 && compareResult4 < 0);
+                break;
+            case "High to Low":
+                Assert.assertTrue("assert high to low selected", pomHomePage.nameHightoLow().isSelected());
+                Assert.assertTrue("high to low switch assert", compareResult3 > 0 && compareResult4 > 0);
+                break;
+            default:
+                Assert.assertTrue("wrong name choose from sort table", false);
+        }
+
     }
+
 
     @When("^press Add to cart button for Sauce Labs Backpack$")
     public void addSauceLabsBackpack() {
         pomHomePage.sauceLabsBackpackAdd().click();
     }
 
-    @Then("cart number increases by {string}")
+    @And("^press Add to cart button for Sauce Labs Bike Light$")
+    public void addSauceLabsBikeLight() {
+        pomHomePage.sauceLabsBikeLightAdd().click();
+    }
+
+    @And("^press Add to cart button for Sauce Labs Bolt T-Shirt$")
+    public void addSauceLabsBoltTShirt() {
+        pomHomePage.sauceLabsBoltTShirt().click();
+    }
+
+    @And("^press Add to cart button for Sauce Labs Fleece Jacket$")
+    public void addSauceLabsFleeceJacket() {
+        pomHomePage.sauceLabsFleeceJacket().click();
+    }
+
+    @Then("cart number changes to {string}")
     public void assertCartnumber(String cartNumber) {
         Assert.assertTrue(pomHomePage.cartNumber().getText().contains(cartNumber));
     }
@@ -121,36 +177,57 @@ public class StepDefinition {
     }
 
     @Then("Redirection to Checkout: Overview")
-    public void assertRedirection(){
+    public void assertRedirection() {
         String expectedUrl = "https://www.saucedemo.com/checkout-step-two.html";
-        String actualUrl=pomCheckoverview.pageUrl();
-        Assert.assertEquals("checkout overview page url",actualUrl,expectedUrl);
+        String actualUrl = pomCheckoverview.pageUrl();
+        Assert.assertEquals("checkout overview page url", actualUrl, expectedUrl);
     }
 
-    @And("Check price 29.99")
-    public void assertPrice(){
-        String expectedprice = "29.99";
+    @And("Check price {double}")
+    public void assertPrice(double price) {
+        String expectedprice = String.valueOf(price);
         String actualprice = pomCheckoverview.totalprice().getText();
         Assert.assertTrue(actualprice.contains(expectedprice));
     }
 
     @When("Press Finish")
-    public void pressFisish(){
+    public void pressFisish() {
         pomCheckoverview.finish().click();
     }
 
     @Then("Check Checkout: Complete!")
-    public void checkCompleteTitle(){
-        String expectedTitle="Checkout: Complete!";
-        String actualTitle=pomComplete.pageTitle();
+    public void checkCompleteTitle() {
+        String expectedTitle = "Checkout: Complete!";
+        String actualTitle = pomComplete.pageTitle();
         Assert.assertTrue(actualTitle.contains(expectedTitle));
     }
 
     @And("check Thank you for your order!")
-    public void thankyouAssert(){
-        String expectedThank="Thank you for your order!";
-        String actualThank=  pomComplete.thankYouMessage();
+    public void thankyouAssert() {
+        String expectedThank = "Thank you for your order!";
+        String actualThank = pomComplete.thankYouMessage();
         Assert.assertTrue(actualThank.contains(expectedThank));
+    }
+
+    @When("Press on the remove for {string}")
+    public void removeProductFromCartPage(String product) {
+        switch (product) {
+            case "Sauce Labs Bolt T-Shirt":
+                pomYourCart.removeSauceLabsBoltTShirt().click();
+                break;
+            default:
+                Assert.assertTrue("wrong name choose from products to remove", false);
+        }
+    }
+    @Then("Assert {string} disappeared")
+    public void assertProductDisappearAfterRemove(String product){
+        try{
+            pomYourCart.removeSauceLabsBoltTShirt();
+            Assert.assertTrue("assert fail to remove product",false);
+        }
+        catch (Exception e){
+            Assert.assertTrue("assert should success to remove product",true);
+        }
     }
 
     @AfterStep
