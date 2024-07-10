@@ -256,7 +256,7 @@ public class StepDefinition {
 
     @AfterStep
     public void afterStep() throws InterruptedException {
-        Thread.sleep(50);
+        Thread.sleep(10);
     }
 
     @After
