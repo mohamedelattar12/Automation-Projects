@@ -3,6 +3,7 @@ package DefinitionSteps;
 import Page.*;
 import io.cucumber.java.After;
 import io.cucumber.java.AfterStep;
+import io.cucumber.java.bs.A;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -114,7 +115,12 @@ public class StepDefinition {
 
     @When("^press Add to cart button for Sauce Labs Backpack$")
     public void addSauceLabsBackpack() {
-        pomHomePage.sauceLabsBackpackAdd().click();
+        try {
+            pomHomePage.sauceLabsBackpackAdd().click();
+        }
+        catch (Exception e){
+            Assert.assertTrue("there is no element for Sauce Labs Backpack",false);
+        }
     }
 
     @And("^press Add to cart button for Sauce Labs Bike Light$")
@@ -135,6 +141,12 @@ public class StepDefinition {
     @Then("cart number changes to {string}")
     public void assertCartnumber(String cartNumber) {
         Assert.assertTrue(pomHomePage.cartNumber().getText().contains(cartNumber));
+    }
+    @And("Sauce Labs Backpack image is correct")
+    public void checkSauceLabsBackpackImage(){
+        String actualImageUrl=pomHomePage.sauceLabsBackpackImage().getAttribute("src");
+        String expectedImageUrl="/static/media/sauce-backpack-1200x1500.0a0b85a3.jpg";
+        Assert.assertTrue(actualImageUrl.contains(expectedImageUrl));
     }
 
     @When("Press on the cart icon on the top right of the page")
@@ -163,6 +175,12 @@ public class StepDefinition {
         String actualUrl = driver.getCurrentUrl();
         Assert.assertEquals(expectedURL, actualUrl);
     }
+    @Then("Refuse Redirection to Checkout: Your Information")
+    public void refuseCheckOut(){
+        String expectedURL = "https://www.saucedemo.com/checkout-step-one.html";
+        String actualUrl = driver.getCurrentUrl();
+        Assert.assertNotEquals(expectedURL, actualUrl);
+    }
 
     @When("Insert first name {string} , Last name {string} and Postal code {string}")
     public void enterNameLastnamePostalcode(String name, String lastNAme, String postalCode) {
@@ -174,6 +192,12 @@ public class StepDefinition {
     @And("Click Contiune")
     public void clickContinue() {
         pomCheckout.continuebutton().click();
+    }
+    @Then("Check the error message is {string}")
+    public void checkErrorMessage(String errorMessage){
+        String expectedErrorMessage="Error: First Name is required";
+        String actualErrorMessage = pomCheckout.errorMessage().getText();
+        Assert.assertTrue(actualErrorMessage.contains(expectedErrorMessage));
     }
 
     @Then("Redirection to Checkout: Overview")
@@ -232,7 +256,7 @@ public class StepDefinition {
 
     @AfterStep
     public void afterStep() throws InterruptedException {
-        Thread.sleep(500);
+        Thread.sleep(50);
     }
 
     @After

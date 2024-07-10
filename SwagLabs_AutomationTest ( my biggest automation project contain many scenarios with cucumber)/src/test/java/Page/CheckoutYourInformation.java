@@ -31,5 +31,9 @@ public class CheckoutYourInformation {
         return driver.findElement(By.xpath("//*[@id=\"continue\"]"));
     }
 
+    public WebElement errorMessage(){
+        return driver.findElement(By.xpath("//*[@id=\"checkout_info_container\"]/div/form/div[1]/div[4]/h3"));
+    }
+
 
 }
